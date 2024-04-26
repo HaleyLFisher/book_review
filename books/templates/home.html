@@ -1,0 +1,11 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+    {% block content %}
+        {% for book in book_list %}
+            <div class="book-entry">
+                <h2><a href="">{{ book.title }}</a></h2>
+                <p>Synopsis: {{ book.synopsis }}</p>
+                <p>Author: {{ book.author }}</p>
+            </div>
+        {% endfor %}
+    {% endblock content %}

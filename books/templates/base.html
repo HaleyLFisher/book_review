@@ -1,0 +1,15 @@
+<!-- templates/base.html -->
+<html>
+    <head>
+        <title>Book Reviews</title>
+    </head>
+    <body>
+        <header>
+            <h1><a href="{% url 'home' %}">Book Reviews</a></h1>
+        </header>
+        <div>
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+</html>
