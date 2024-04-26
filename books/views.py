@@ -37,7 +37,7 @@ class ReviewPost(SingleObjectMixin, FormView): # new
     def form_valid(self, form):
         review = form.save(commit=False)
         review.book = self.object
-        review.user = self.request.user
+        review.user = review.user
         review.save()
         return super().form_valid(form)
     def get_success_url(self):
