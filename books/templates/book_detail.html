@@ -1,0 +1,17 @@
+<!-- templates/post_detail.html -->
+{% extends "base.html" %}
+    {% block content %}
+        <div class="post-entry">
+            <h2>{{ object.title }}</h2>
+            <p>Year Published: {{ object.year_published }}</p>
+            <p>Synopsis: {{ object.synopsis }}</p>
+            
+        </div>
+        <hr>
+        <h4>Reviews</h4>
+        {% for review in book.review_set.all %}
+        <p>{{ review.user }} &middot; {{ review }} &middot; {{ review.stars }}</p>
+        <p>{{ review.content }}</p>
+        {% endfor %}
+        <hr>
+    {% endblock content %}

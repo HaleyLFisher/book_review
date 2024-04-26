@@ -12,8 +12,9 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self): 
+    def get_absolute_url(self):
         return reverse("book_detail", kwargs={"pk": self.pk})
+    
     @property
     def number_of_reviews(self):
         return Review.objects.filter(book=self).count()
@@ -28,9 +29,12 @@ class Review(models.Model):
     )
     stars = models.IntegerField(choices=rate_choices, default=1)
     title = models.CharField(max_length=100)
-    book = models.ForeignKey(Book, related_name='reviews', on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     content = models.TextField()
     user = models.CharField(max_length=20)
     
     def __str__(self):
         return str(self.title)
+    
+    def get_absolute_url(self):
+        return reverse("book_list")
