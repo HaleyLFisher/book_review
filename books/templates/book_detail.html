@@ -1,18 +1,23 @@
-<!-- templates/post_detail.html -->
+<!-- templates/book_update.html -->
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
     {% block content %}
-        <div class="post-entry">
+        <div class="book-entry">
             <h2>{{ object.title }}</h2>
             <p>Year Published: {{ object.year_published }}</p>
-            <p>Synopsis: {{ object.synopsis }}</p>
-            
+            <p>Synopsis: {{ object.synopsis }}</p>  
         </div>
+        <a href="{% url 'book_update' book.pk %}">+ Update Book Information</a>
+        <a href="{% url 'book_delete' book.pk %}">+ Remove Book</a>
         <hr>
         <h4>Reviews</h4>
         {% for review in book.review_set.all %}
-        <p>{{ review.user }} &middot; {{ review }} &middot; {{ review.stars }}</p>
+        <p>{{ review.user }} </p>
+        <p><b>Title:</b> {{ review }} </p>
+        <p><b>Rating:</b> {{ review.stars }}/5</p>
+        <p><b>Review:</b></p>
         <p>{{ review.content }}</p>
+        <p>---------------------</p>
         {% endfor %}
         <hr>
         <h4>Add a review</h4>

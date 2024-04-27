@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Book, Review
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic import ListView, DetailView, FormView, View
+from django.views.generic import ListView, DetailView, FormView, View, CreateView, UpdateView, DeleteView
 from .forms import ReviewForm
 from django.urls import reverse_lazy, reverse
 # Create your views here.
@@ -43,3 +43,18 @@ class ReviewPost(SingleObjectMixin, FormView): # new
     def get_success_url(self):
         book = self.object
         return reverse("book_detail", kwargs={"pk": book.pk})
+
+class BookCreateView(CreateView): # new
+    model = Book
+    template_name = "book_new.html"
+    fields = ["title", "author", "synopsis", "year_published"]
+
+class BookUpdateView(UpdateView):
+    model = Book
+    template_name = "book_update.html"
+    fields = ["title", "author", "synopsis", "year_published"]
+
+class BookDeleteView(DeleteView):
+    model = Book
+    template_name = "book_delete.html"
+    success_url = reverse_lazy("home")
