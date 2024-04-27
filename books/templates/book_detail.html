@@ -7,8 +7,10 @@
             <p>Year Published: {{ object.year_published }}</p>
             <p>Synopsis: {{ object.synopsis }}</p>  
         </div>
-        <a href="{% url 'book_update' book.pk %}">+ Update Book Information</a>
-        <a href="{% url 'book_delete' book.pk %}">+ Remove Book</a>
+        {% if request.user.is_superuser %}
+            <a href="{% url 'book_update' book.pk %}">+ Update Book Information</a>
+            <a href="{% url 'book_delete' book.pk %}">+ Remove Book</a>
+        {% endif %}
         <hr>
         <h4>Reviews</h4>
         {% for review in book.review_set.all %}

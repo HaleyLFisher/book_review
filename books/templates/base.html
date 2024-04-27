@@ -13,16 +13,22 @@
                 <div class="nav-left">
                     <h1><a href="{% url 'home' %}">Book Reviews!</a></h1>
                 </div>
+                {% if user.is_authenticated%}
                 <div class="nav-right">
                     <a href="{% url 'book_new' %}">+ Add a New Book</a>
                 </div>
+                {% endif%}
             </header>
             {% if user.is_authenticated %}
                 <p>Hi {{ user.username }}!</p>
-                <p><a href="{% url 'logout' %}">Log out</a></p>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Log Out</button>
+                </form>
             {% else %}
                 <p>You are not logged in.</p>
-                <a href="{% url 'login' %}">Log In</a>
+                <a href="{% url 'login' %}">Log In</a>|
+                <a href="{% url 'signup' %}">Sign Up</a>
             {% endif %}
         <div>
             {% block content %}
