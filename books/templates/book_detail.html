@@ -7,7 +7,7 @@
             <p>Year Published: {{ object.year_published }}</p>
             <p>Synopsis: {{ object.synopsis }}</p>  
         </div>
-        {% if request.user.is_superuser %}
+        {% if user.is_staff %}
             <a href="{% url 'book_update' book.pk %}">+ Update Book Information</a>
             <a href="{% url 'book_delete' book.pk %}">+ Remove Book</a>
         {% endif %}

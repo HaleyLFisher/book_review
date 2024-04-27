@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Book, Review
 from django.views.generic.detail import SingleObjectMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, FormView, View, CreateView, UpdateView, DeleteView
 from .forms import ReviewForm
 from django.urls import reverse_lazy, reverse
@@ -51,19 +51,21 @@ class BookCreateView(LoginRequiredMixin, CreateView): # new
     fields = ["title", "author", "synopsis", "year_published"]
     
 
-class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class BookUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Book
     template_name = "book_update.html"
     fields = ["title", "author", "synopsis", "year_published"]
+    permission_required = 'user.is_staff'
     
     def test_func(self): # new
         obj = self.get_object()
         return obj.author == self.request.user
 
-class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class BookDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Book
     template_name = "book_delete.html"
     success_url = reverse_lazy("home")
+    permission_required = 'user.is_staff'
     
     def test_func(self): # new
         obj = self.get_object()
